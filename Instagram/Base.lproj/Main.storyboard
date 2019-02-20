@@ -46,9 +46,51 @@
                     <view key="view" contentMode="scaleToFill" id="UcI-Mn-QCs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lWJ-0k-CLK">
+                                <rect key="frame" x="37.5" y="100" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="yyR-Pq-XgU"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mA-zt-JY3">
+                                <rect key="frame" x="37.5" y="140" width="300" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="Lud-J3-Adv"/>
+                                </constraints>
+                                <state key="normal" title="表示名を変更" backgroundImage="btn"/>
+                                <connections>
+                                    <action selector="handleCangeButton:" destination="gxL-Li-Igw" eventType="touchUpInside" id="J4a-tE-cnJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SCi-7s-njz">
+                                <rect key="frame" x="37.5" y="190" width="300" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="idt-Ff-32N"/>
+                                </constraints>
+                                <state key="normal" title="ログアウト" backgroundImage="btn"/>
+                                <connections>
+                                    <action selector="handleLogoutButton:" destination="gxL-Li-Igw" eventType="touchUpInside" id="DSs-EI-eRt"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="lWJ-0k-CLK" firstAttribute="top" secondItem="0YM-hx-XQ1" secondAttribute="top" constant="80" id="9vS-kD-uRM"/>
+                            <constraint firstItem="SCi-7s-njz" firstAttribute="top" secondItem="6mA-zt-JY3" secondAttribute="bottom" constant="10" id="AVP-Ky-Xn2"/>
+                            <constraint firstItem="lWJ-0k-CLK" firstAttribute="centerX" secondItem="UcI-Mn-QCs" secondAttribute="centerX" id="EeL-iQ-zEC"/>
+                            <constraint firstItem="6mA-zt-JY3" firstAttribute="centerX" secondItem="UcI-Mn-QCs" secondAttribute="centerX" id="Hqf-wI-hSH"/>
+                            <constraint firstItem="SCi-7s-njz" firstAttribute="centerX" secondItem="UcI-Mn-QCs" secondAttribute="centerX" id="Rgl-cd-kyD"/>
+                            <constraint firstItem="6mA-zt-JY3" firstAttribute="top" secondItem="lWJ-0k-CLK" secondAttribute="bottom" constant="10" id="lbN-kM-hhQ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="0YM-hx-XQ1"/>
                     </view>
+                    <connections>
+                        <outlet property="displayNameTextField" destination="lWJ-0k-CLK" id="1oW-5B-s1j"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dl4-bH-uPd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
