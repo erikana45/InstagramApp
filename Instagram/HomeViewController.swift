@@ -10,10 +10,11 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
+import SVProgressHUD
 
 
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
   
     
     
@@ -27,8 +28,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PostTableViewCell
         cell.setPostData(postArray[indexPath.row])
         
-        // セル内のボタンのアクションをソースコードで設定する
-        cell.likeButton.addTarget(self, action:#selector(handleButton(_:forEvent:)), for: .touchUpInside)
+        // セル内のボタンのアクションをソースコードで設定する(like)
+        cell.likeButton.addTarget(self, action:#selector(handleLikeButton(_:forEvent:)), for: .touchUpInside)
+        
+        // セル内のボタンのアクションをソースコードで設定する(コメント)
+        cell.commentButton.addTarget(self, action:#selector(handlecommentButton(_:forEvent:)), for: .touchUpInside)
         
         return cell
     }
@@ -70,9 +74,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewWillAppear(animated)
         print("DEBUG_PRINT: viewWillAppear")
         
-        //Firebase Databaseはobserve(_:with:)メソッドでイベントを指定しておくことで、指定イベントが発生した時にクロージャが呼び出されます。
-        
-        //1つ目のイベントは.childAddedです。まだ読み出されていないデータをFirebaseから受け取ったら、このメソッドに登録したクロージャが呼び出されます。また一通り全てのデータを受け取った後、別の端末で写真を投稿し、データベースにデータが追加されれば、再びこのイベントが発生し、クロージャが呼び出されます。呼び出されたクロージャはPostDataクラスのインスタンスを生成して、それを配列の先頭に追加し、TableViewに反映します。
         if Auth.auth().currentUser != nil {
           
             //observing???
@@ -92,9 +93,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     }
                 })
                 
-                // Firebase Databaseはobserve(_:with:)メソッドでイベントを指定しておくことで、指定イベントが発生した時にクロージャが呼び出されます。
-                //要素が変更されたら該当のデータをpostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
-                //このアプリではいいねをしたときに要素が変更される（いいねの数が増えるまたは減る）ときに呼び出されます。クロージャの中では配列の中から変更された投稿と同じIDのものを探し、配列から削除します。そして、新たに受け取ったデータを配列の同じ位置に追加します。そしてTableViewに反映します。
+                //要素が変更されたらpostArrayに追加し再表示
                 postsRef.observe(.childChanged, with: { snapshot in
                     print("DEBUG_PRINT: .childChangedイベントが発生しました。")
                     
@@ -144,8 +143,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
 
     
-    // セル内のボタンがタップされた時に呼ばれるメソッド
-    @objc func handleButton(_ sender: UIButton, forEvent event: UIEvent) {
+    // セル内のLikeボタンがタップされた時に呼ばれるメソッド
+    @objc func handleLikeButton(_ sender: UIButton, forEvent event: UIEvent) {
         print("DEBUG_PRINT: likeボタンがタップされました。")
         
         // タップされたセルのインデックスを求める
@@ -180,6 +179,47 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
         }
     }
+    
+    
+    // セル内のボタンがタップされた時に呼ばれるメソッド　comment ver
+    @objc func handlecommentButton(_ sender: UIButton, forEvent event: UIEvent) {
+        print("DEBUG_PRINT: commnetボタンがタップされました。")
+        
+        // タップされたセルのインデックスを求める
+        let touch = event.allTouches?.first
+        let point = touch!.location(in: self.tableView)
+        let indexPath = tableView.indexPathForRow(at: point)
+        
+        // 配列からタップされたインデックスのデータを取り出す
+        //cellにcommentFieldを作る
+        let postData = postArray[indexPath!.row]
+        let cell = tableView.cellForRow(at: indexPath!) as! PostTableViewCell
+        let comments = cell.commentField.text!
+      
+        cell.commentField.text = ""
+        
+        //Firebaseに保存するデータの準備
+        if let commentsuser = Auth.auth().currentUser?.displayName {
+            postData.comments.append("\(commentsuser):\(cell.commentLabel.text!)\n")
+            
+        //Firebaseの更新
+        let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!)
+        let comments = ["comments": postData.comments]
+        let commentsuser = ["commentsuser":postData.commentsuser]
+        
+        postRef.updateChildValues(comments)
+        postRef.updateChildValues(commentsuser)
+      }
+        
+        
+        
+    }
+    
+    
+    
+        
+
+    
     /*
     // MARK: - Navigation
 
@@ -189,5 +229,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Pass the selected object to the new view controller.
     }
     */
+
+
 
 }

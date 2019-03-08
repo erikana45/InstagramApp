@@ -19,6 +19,8 @@ class PostData: NSObject {
     var date: Date?
     var likes: [String] = []
     var isLiked: Bool = false
+    var comments: [String] = [] //課題用に追加。CommentDataで別管理しようとすると、画像のない投稿としてエラーになった
+    var commentsuser:[String] = []//課題用に追加
     
     init(snapshot: DataSnapshot, myId: String) {
         self.id = snapshot.key
@@ -35,6 +37,8 @@ class PostData: NSObject {
         let time = valueDictionary["time"] as? String
         self.date = Date(timeIntervalSinceReferenceDate: TimeInterval(time!)!)
         
+        
+        //likeの書き込みを保存
         if let likes = valueDictionary["likes"] as? [String] {
             self.likes = likes
         }
@@ -45,5 +49,18 @@ class PostData: NSObject {
                 break
             }
         }
+        
+        //課題用：コメントの保存
+        if let comments = valueDictionary["comments"] as? [String] {
+            self.comments = comments
+        }
+        
+        //課題用：コメントしたユーザー名の保存
+        if let commentsuser = valueDictionary["commentsuser"] as? [String] {
+            self.commentsuser = commentsuser
+        }
+        
+        
+        
     }
 }

@@ -16,6 +16,9 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
     
+    @IBOutlet weak var commentField: UITextField!
+    @IBOutlet weak var commentButton: UIButton!//アイコン
+    @IBOutlet weak var commentLabel: UILabel!//コメントと入力者を表示する
     
     
     override func awakeFromNib() {
@@ -28,6 +31,7 @@ class PostTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
     
     
     func setPostData(_ postData: PostData) {
@@ -51,6 +55,12 @@ class PostTableViewCell: UITableViewCell {
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
+    
+        //課題：コメントと記入者をラベルに表示する
+        self.commentLabel.text = "\(postData.commentsuser) : \(postData.comments)"
+        
+        
     }
+    
     
 }
