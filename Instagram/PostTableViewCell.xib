@@ -60,7 +60,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jJZ-gf-bIu">
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="コメントを入力" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jJZ-gf-bIu">
                         <rect key="frame" x="130" y="441" width="162" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="nqf-4A-76z"/>
@@ -69,13 +69,13 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
-                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Oo-fj-swp">
-                        <rect key="frame" x="302" y="444" width="32" height="32"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Oo-fj-swp">
+                        <rect key="frame" x="302" y="440" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="I1v-vm-Gaj"/>
                             <constraint firstAttribute="width" constant="32" id="WQl-ub-1Em"/>
                         </constraints>
-                        <state key="normal" backgroundImage="comment2"/>
+                        <state key="normal" backgroundImage="btn_add.png"/>
                     </button>
                 </subviews>
                 <constraints>
@@ -92,8 +92,10 @@
                     <constraint firstItem="dpX-jt-gGr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ryr-70-W2y"/>
                     <constraint firstAttribute="trailing" secondItem="dpX-jt-gGr" secondAttribute="trailing" id="Sf4-bF-ON1"/>
                     <constraint firstAttribute="trailingMargin" secondItem="fMF-iA-fje" secondAttribute="trailing" constant="10" id="ayg-dq-pqJ"/>
+                    <constraint firstItem="c1f-54-atr" firstAttribute="centerY" secondItem="ouR-FL-MbB" secondAttribute="centerY" id="dcq-mH-YuL"/>
                     <constraint firstItem="c1f-54-atr" firstAttribute="centerY" secondItem="ouR-FL-MbB" secondAttribute="centerY" id="dqB-Zp-qCs"/>
                     <constraint firstItem="fMF-iA-fje" firstAttribute="top" secondItem="c1f-54-atr" secondAttribute="bottom" constant="10" id="gL2-zD-t37"/>
+                    <constraint firstItem="6Oo-fj-swp" firstAttribute="centerY" secondItem="ouR-FL-MbB" secondAttribute="centerY" id="iDv-Dw-yIF"/>
                     <constraint firstItem="ouR-FL-MbB" firstAttribute="top" secondItem="dpX-jt-gGr" secondAttribute="bottom" constant="10" id="p38-cW-tTA"/>
                     <constraint firstItem="YHC-3Y-7C6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="qSc-44-J8K"/>
                     <constraint firstItem="c1f-54-atr" firstAttribute="leading" secondItem="ouR-FL-MbB" secondAttribute="trailing" constant="10" id="r6m-tZ-hHW"/>
@@ -118,7 +120,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="comment2" width="32" height="32"/>
+        <image name="btn_add.png" width="456" height="456"/>
         <image name="like_none" width="40" height="40"/>
     </resources>
 </document>
