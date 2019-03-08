@@ -196,19 +196,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.cellForRow(at: indexPath!) as! PostTableViewCell
         let comments = cell.commentField.text!
       
-        cell.commentField.text = ""
-        
         //Firebaseに保存するデータの準備
         if let commentsuser = Auth.auth().currentUser?.displayName {
-            postData.comments.append("\(commentsuser):\(cell.commentLabel.text!)\n")
+            postData.comments.append("\(commentsuser):\(cell.commentField.text!)")
             
         //Firebaseの更新
         let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!)
         let comments = ["comments": postData.comments]
-        let commentsuser = ["commentsuser":postData.commentsuser]
         
         postRef.updateChildValues(comments)
-        postRef.updateChildValues(commentsuser)
       }
         
         
